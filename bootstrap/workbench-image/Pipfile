@@ -51,7 +51,7 @@ autopep8 = "==2.0.4"
 flake8 = "==7.1.1"
 # Base packages
 pip = "==22.2.2"
-wheel = "==0.43.0"
+wheel = "==0.46.2"
 setuptools = "==69.2.0"
 
 # Fixing packages as they are in the Pytorch 2024.1 image from RHOAI 2.13
