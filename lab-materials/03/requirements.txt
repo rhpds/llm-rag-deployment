@@ -123,7 +123,7 @@ tokenizers==0.19.1; python_version >= '3.7'
 torch==2.2.2+cu121
 torchvision==0.17.2; python_version >= '3.8'
 tqdm==4.66.5; python_version >= '3.7'
-transformers==4.44.2; python_full_version >= '3.8.0'
+transformers==4.53.0; python_full_version >= '3.8.0'
 triton==2.2.0; python_version < '3.12' and platform_system == 'Linux' and platform_machine == 'x86_64'
 typing-extensions==4.12.2; python_version < '3.13'
 typing-inspect==0.9.0
