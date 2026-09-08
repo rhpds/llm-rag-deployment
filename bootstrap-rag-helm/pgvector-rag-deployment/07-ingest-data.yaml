@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-ingest-rag-job
+  namespace: ic-shared-rag-llm
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    executed: "false"  # Flag to indicate whether the job has been executed or not
+spec:
+  template:
+    metadata:
+      name: data-ingest-rag-pod
+    spec:
+      serviceAccountName: postgres-service-account
+      containers:
+      - name: data-ingest
+        image: python:3.11
+        env:
+        - name: HOME
+          value: /tmp
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+              mkdir -p /tmp/app
+              curl -o /tmp/app/data_ingest.py https://raw.githubusercontent.com/rhpds/llm-rag-deployment/refs/heads/litemaas-update/examples/pipelines/data_ingest.py
+              curl -o /tmp/app/requirements.txt https://raw.githubusercontent.com/rhpds/llm-rag-deployment/refs/heads/litemaas-update/examples/pipelines/requirements.txt
+              cd /tmp/app
+              pip install --user -r requirements.txt
+              python data_ingest.py
+      restartPolicy: Never
